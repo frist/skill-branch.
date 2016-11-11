@@ -24,7 +24,7 @@ app.get('/task2B', (req, res) => {
     const reg = /\S+/g
 
     const names = fullname.match(reg);
-    console.log(names)
+
     if(names.length > 3 || names.length == 0)
       throw 'Invalid fullname'
 
@@ -33,6 +33,25 @@ app.get('/task2B', (req, res) => {
       fio += " " + names[i].substr(0,1) + "."
 
     res.send(fio)
+  } catch(e) {
+    res.send(e)
+  }
+});
+
+app.get('/task2C', (req, res) => {
+  try {
+    let username = req.query.username
+    if(!username)
+      throw 'Invalid username'
+    const reg = /([a-zA-Z]+$)|([a-zA-Z]+[\?])/g
+    const reg1 = /[a-zA-Z]+/g;
+
+    const matches = username.match(reg)
+    if(!matches)
+      throw "Invalid username"
+
+    res.send("@"+(""+matches).match(reg1))
+
   } catch(e) {
     res.send(e)
   }
